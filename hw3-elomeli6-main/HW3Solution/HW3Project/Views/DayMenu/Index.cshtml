@@ -1,0 +1,60 @@
+@model HW3Project.Models.DayMenu
+
+<h1>Day's Menu</h1>
+
+<form asp-action="AddMeal" method="post">
+    <label for="mealName">Meal Name:</label>
+    <input type="text" id="mealName" name="Name" required>
+    <label for="mealType">Meal Type:</label>
+    <select id="mealType" name="Type" required>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+    </select>
+    <label for="ingredients">Ingredients:</label>
+    <textarea id="ingredients" name="Ingredients" required></textarea>
+    <button type="submit">Add Meal</button>
+</form>
+
+<h2>Today's Meals</h2>
+
+@if (Model.Meals.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Ingredients</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meal in Model.Meals)
+            {
+                <tr>
+                    <td>@meal.Name</td>
+                    <td>@meal.Type</td>
+                    <td>
+                        <ul>
+                            @foreach (var ingredient in meal.Ingredients)
+                            {
+                                <li>@ingredient</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <form asp-action="RemoveMeal" method="post">
+                            <input type="hidden" name="Name" value="@meal.Name" />
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No meals added yet.</p>
+}

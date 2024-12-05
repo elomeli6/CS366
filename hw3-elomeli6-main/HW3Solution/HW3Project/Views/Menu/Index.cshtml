@@ -1,0 +1,30 @@
+@model List<HW3Project.Models.Meal>
+
+<h1>Menu</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Ingredients</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var meal in Model)
+        {
+            <tr>
+                <td>@meal.Name</td>
+                <td>@meal.Type</td>
+                <td>
+                    <ul>
+                        @foreach (var ingredient in meal.Ingredients)
+                        {
+                            <li>@ingredient</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
